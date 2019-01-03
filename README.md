@@ -3,7 +3,7 @@
 ## About
 This repository contains Visual Studios 2017 code that is written in C#. There are two solutions in there called ImageUDPServer and ImageUDPClient. 
 
-The main features of the programs is to show how a UDP server can send raw image bytes to a UDP client which can then process the bytes to be used for displaying.
+The main purpose of the programs is to show how a UDP server can send raw image bytes to a UDP client which can then process the bytes to be used for displaying.
 
 ## ImageUDPClient
 This solution contains two projects called ImageUDPClient and MultiImageUDPClient. 
@@ -34,3 +34,8 @@ OR
 * Build everything.
 * Run an instance of the ImageUDPServer project.
 * Run an instance of either the ImageUDPClient project.
+
+## TODO/WISHLIST
+* UDPServer cannot serve multiple clients. So a new instance will need to run whenever, you want to try out a different client.
+* Add in a Real Time Transport library and integrate that with the solutions.
+* Increase the speed of processing the bytes to be able to handle higher quality images.
