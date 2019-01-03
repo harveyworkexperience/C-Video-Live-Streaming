@@ -23,7 +23,9 @@ ImageUDPServer first converts the images in the JPEG_Images\ folder into bytes a
 ## Set up
 * Download the zip.
 * Extract the zip.
+
 OR
+
 * Clone the repository.
 
 ## Running
