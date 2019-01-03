@@ -20,6 +20,12 @@ ImageUDPServer first converts the images in the JPEG_Images\ folder into bytes a
 ## Prerequisites
 * Visual Studios 2017
 
+## Set up
+* Download the zip.
+* Extract the zip.
+OR
+* Clone the repository.
+
 ## Running
 * Open two separate instanes of Visual Studios 2017.
 * In one of them, open the ImageUDPServer solution and in the other open the ImageUDPClient solution.
