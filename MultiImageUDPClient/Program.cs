@@ -12,10 +12,13 @@ class Client
 {
     // Important Variable(s)
     static private string current_dir_path = System.AppDomain.CurrentDomain.BaseDirectory;
+    private const bool DEBUGMODE = false;
 
     // Connection Variables
     private bool connection_success = false;
     private static UdpClient udpclient = new UdpClient();
+    // Localhost - 127.0.0.1
+    // To check current IPv4 Address, open Command Prompt and type in ipconfig
     private static IPEndPoint ep = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 11000); // endpoint where server is listening
     public static byte[] received_bytes;
     private static int num_packets = 0;
@@ -97,13 +100,13 @@ class Client
     // Needs to be run on another thread, in the background.
     static void Build_Images_JPEG()
     {
-        Console.WriteLine("T: Building image from JPEG bytes...");
+        if (DEBUGMODE) Console.WriteLine("T: Building image from JPEG bytes...");
         while (is_running)
         {
             // Looking for JPEG headers
             int found_jpg_header = 0;
             byte b;
-            Console.WriteLine("T: Looking for JPEG headers...");
+            if (DEBUGMODE) Console.WriteLine("T: Looking for JPEG headers...");
             while (true)
             {
                 b = GetStreamByte();
@@ -116,7 +119,7 @@ class Client
             }
 
             // Start working on making a new image
-            Console.WriteLine("T: Found JPEG headers!");
+            if (DEBUGMODE) Console.WriteLine("T: Found JPEG headers!");
             // Initialising image
             int byte_count = 0;
             image = new byte[image_size];
@@ -125,7 +128,7 @@ class Client
 
             // Building image
             int end_flag = 0;
-            Console.WriteLine("T: Retrieving image bytes...");
+            if (DEBUGMODE) Console.WriteLine("T: Retrieving image bytes...");
             while (byte_count < image_size)
             {
                 byte tmp_b = GetStreamByte();
@@ -146,17 +149,17 @@ class Client
 
             // Storing completed image into another byte array
             else Array.Resize<byte>(ref image, byte_count);
-            Console.WriteLine("T: Retrieved image bytes!");
+            if (DEBUGMODE) Console.WriteLine("T: Retrieved image bytes!");
             ready_image = new byte[byte_count];
             Array.Copy(image, ready_image, byte_count);
 
             // Saving image
-            Console.WriteLine("T: Finished building image and now saving it...");
-            Console.WriteLine("T: " + image.Length);
+            if (DEBUGMODE) Console.WriteLine("T: Finished building image and now saving it...");
+            if (DEBUGMODE) Console.WriteLine("T: " + image.Length);
             // Checking if it is possible to save image and then saving it to one of the two tmp files
             if (!ByteArrayToFile(tmp_image_paths + "0_tmp.jpg", ready_image))
                 ByteArrayToFile(tmp_image_paths + "1_tmp.jpg", ready_image);
-            Console.WriteLine("T: Image saved!");
+            if (DEBUGMODE) Console.WriteLine("T: Image saved!");
 
             // Signalling image is ready to be used
             mtx.WaitOne();
@@ -211,6 +214,9 @@ class Client
 
     static void Main(string[] args)
     {
+        // Naming title of application
+        Console.Title = "Multi-Image UDP Client";
+
         // Setting up
         Console.WriteLine("CLIENT\n=====================");
 
@@ -248,8 +254,8 @@ class Client
                 }
 
                 // Switching image
-                Console.Write("\n");
-                Console.WriteLine("Switching image!");
+                if (DEBUGMODE) Console.Write("\n");
+                if (DEBUGMODE) Console.WriteLine("Switching image!");
                 if (img_number == 0)
                 {
                     try
@@ -295,6 +301,7 @@ class Client
 
         // Displaying image
         while (!is_ready) ;
+        Console.WriteLine("Displaying image(s)...");
         Display_Image(tmp_image_paths + "0_tmp.jpg");
 
         // Closing Thread
@@ -309,7 +316,7 @@ class Client
         Console.WriteLine("Deleting temporary images...");
         try
         {
-            Console.WriteLine("{0}! has been deleted!", tmp_image_paths + "0_tmp.jpg");
+            if (DEBUGMODE) Console.WriteLine("{0}! has been deleted!", tmp_image_paths + "0_tmp.jpg");
             File.Delete(tmp_image_paths + "0_tmp.jpg");
         }
         catch (Exception ex)
@@ -319,7 +326,7 @@ class Client
         }
         try
         {
-            Console.WriteLine("{0} has been deleted!", tmp_image_paths + "1_tmp.jpg");
+            if (DEBUGMODE) Console.WriteLine("{0} has been deleted!", tmp_image_paths + "1_tmp.jpg");
             File.Delete(tmp_image_paths + "1_tmp.jpg");
         }
         catch (Exception ex)

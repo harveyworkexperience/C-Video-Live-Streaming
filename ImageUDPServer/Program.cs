@@ -12,6 +12,7 @@ namespace ImageUDPServer
     class Program
     {
         // Important variables
+        private const bool DEBUGMODE = false;
         static private UdpClient udpserver;
         static private IPEndPoint importantEP;
         const int num_bytes = 65000;
@@ -54,15 +55,21 @@ namespace ImageUDPServer
         // Only serves one client
         static void Main(string[] args)
         {
-            Console.Write("Image Data\n====================\n");
-            Console.Write("img1: " + img1.Length + "\n");
-            Console.Write("img2: " + img2.Length + "\n\n");
+            // Changing application title
+            Console.Title = "Image UDP Server";
 
-            for (int i=0; i<images.Length; i++)
+            if (DEBUGMODE)
             {
-                Console.WriteLine("images[" + i + "]: " +images[i].Length);
+                Console.Write("Image Data\n====================\n");
+                Console.Write("img1: " + img1.Length + "\n");
+                Console.Write("img2: " + img2.Length + "\n\n");
+
+                for (int i = 0; i < images.Length; i++)
+                {
+                    Console.WriteLine("images[" + i + "]: " + images[i].Length);
+                }
+                Console.Write("\n");
             }
-            Console.Write("\n");
 
             // Input Listener
             Thread _input_thread = new Thread(KeyInterrupt);
@@ -92,12 +99,14 @@ namespace ImageUDPServer
             var datagram = Encoding.ASCII.GetBytes("Yes we are connected.");
             var data = "Null";
 
+            Console.Write("Waiting for client connection");
+
             while (true)
             {
                 var ep = new IPEndPoint(IPAddress.Any, 11000);
                 data = Encoding.ASCII.GetString(udpserver.Receive(ref ep)); // Listen on port 11000
-                Console.Write("Received data from " + ep.ToString() + "\n");
-                Console.Write("data: " + data + "\n\n");
+                if (DEBUGMODE) Console.Write("Received data from " + ep.ToString() + "\n");
+                if (DEBUGMODE) Console.Write("data: " + data + "\n\n");
 
                 // Replying back to important client
                 if (data == "Are we connected yet?")
@@ -109,6 +118,7 @@ namespace ImageUDPServer
                     }
                     importantEP = ep;
                     serve_client = true;
+                    Console.Write("\n");
                     ServeClientVideo();
                 }
             }
@@ -135,7 +145,7 @@ namespace ImageUDPServer
             {
                 int loop1_count = 0;
                 int loop2_count = 0;
-                Console.WriteLine("Sending image 1");
+                if (DEBUGMODE) Console.WriteLine("Sending image 1");
                 for (int i = img1.Length; i > 0; i -= num_bytes)
                 {
                     byte[] b = new byte[num_bytes];
@@ -146,7 +156,7 @@ namespace ImageUDPServer
                     udpserver.Send(b, num_bytes, importantEP);
                     loop1_count++;
                 }
-                Console.WriteLine("Sending image 2");
+                if (DEBUGMODE) Console.WriteLine("Sending image 2");
                 for (int i = img2.Length; i > 0; i -= num_bytes)
                 {
                     byte[] b = new byte[num_bytes];
@@ -171,7 +181,7 @@ namespace ImageUDPServer
                 for (int i = 0; i<images.Length; i++)
                 {
                     int loop_count = 0;
-                    Console.WriteLine("Sending image "+(i+1).ToString());
+                    if (DEBUGMODE) Console.WriteLine("Sending image "+(i+1).ToString());
                     for (int j=images[i].Length; j > 0; j -= num_bytes)
                     {
                         byte[] b = new byte[num_bytes];
@@ -197,7 +207,7 @@ namespace ImageUDPServer
                 for (int i = 0; i < vr_images.Length; i++)
                 {
                     int loop_count = 0;
-                    Console.WriteLine("Sending image " + (i + 1).ToString());
+                    if (DEBUGMODE) Console.WriteLine("Sending image " + (i + 1).ToString());
                     for (int j = vr_images[i].Length; j > 0; j -= num_bytes)
                     {
                         byte[] b = new byte[num_bytes];
