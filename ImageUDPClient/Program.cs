@@ -8,6 +8,9 @@ using System.Diagnostics;
 
 class Client
 {
+    // Important Variable(s)
+    static private string current_dir_path = System.AppDomain.CurrentDomain.BaseDirectory;
+
     // Connection Variables
     private bool connection_success = false;
     private UdpClient udpclient = new UdpClient();
@@ -158,7 +161,7 @@ class Client
         }
         Console.WriteLine("Finished building image and now saving it...");
         Console.WriteLine(c.image.Length);
-        ByteArrayToFile(@"C:\Work Experience\JPEG_Images\img1_tmp.jpg", c.image);
+        ByteArrayToFile(current_dir_path + @"..\..\..\JPEG_Images\img1_tmp.jpg", c.image);
         Console.WriteLine("Image saved!");
         System.Threading.Thread.Sleep(100000);
     }

@@ -10,6 +10,9 @@ using System.Drawing;
 
 class Client
 {
+    // Important Variable(s)
+    static private string current_dir_path = System.AppDomain.CurrentDomain.BaseDirectory;
+
     // Connection Variables
     private bool connection_success = false;
     private static UdpClient udpclient = new UdpClient();
@@ -25,7 +28,7 @@ class Client
     private static byte[] image = new byte[image_size];
     private static byte[] ready_image;
     private static int img_number = 0;
-    private static string tmp_image_paths = @"C:\Work Experience\JPEG_Images\temp_images\img";
+    private static string tmp_image_paths = current_dir_path + @"..\..\..\JPEG_Images\temp_images\img";
 
     // Display Variables
     private static System.Windows.Forms.Timer timer;
