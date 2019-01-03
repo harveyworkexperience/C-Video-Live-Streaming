@@ -36,6 +36,7 @@ OR
 * Run an instance of either the ImageUDPClient project.
 
 ## TODO/WISHLIST
-* UDPServer cannot serve multiple clients. So a new instance will need to run whenever, you want to try out a different client.
+* UDPServer cannot serve multiple clients. So a new instance will need to run whenever, you want to try out a different client. Want to fix this.
 * Add in a Real Time Transport library and integrate that with the solutions.
 * Increase the speed of processing the bytes to be able to handle higher quality images.
+* A client is unable to listen to the server while it is in the middle of broadcasting. Want to fix this.
