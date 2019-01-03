@@ -11,22 +11,24 @@ namespace ImageUDPServer
 {
     class Program
     {
+        // Important variables
         static private UdpClient udpserver;
         static private IPEndPoint importantEP;
         const int num_bytes = 65000;
         static bool serve_client = false;
+        static private string current_dir_path = System.AppDomain.CurrentDomain.BaseDirectory;
 
         // Storing images as byte array
-        static public string simple_image_paths = @"C:\Work Experience\JPEG_Images\img";
+        static public string simple_image_paths = current_dir_path+@"..\..\..\JPEG_Images\img";
         static public byte[] img1 = ImageToByteArray(simple_image_paths + "5.jpg");
         static public byte[] img2 = ImageToByteArray(simple_image_paths + "3.jpg");
 
         // Animation images
-        static public string animation_image_paths = @"C:\Work Experience\JPEG_Images\sample_animation\img";
+        static public string animation_image_paths = current_dir_path+@"..\..\..\JPEG_Images\sample_animation\img";
         static public byte[][] images = LoadAnimation(animation_image_paths, "jpeg", 53);
 
         // Bad VR Video Images
-        static public string vr_paths = @"C:\Work Experience\JPEG_Images\vr_images\img";
+        static public string vr_paths = current_dir_path + @"..\..\..\JPEG_Images\vr_images\img";
         static public byte[][] vr_images = null;//LoadAnimation(vr_paths, "jpeg", 1219);
 
         // Load a lot of images
