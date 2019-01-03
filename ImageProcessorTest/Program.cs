@@ -149,6 +149,6 @@ class Client
         {
             c.Build_Images_JPEG();
         }
-        ByteArrayToFile(@"C:\Work Experience\JPEG_Images", c.received_bytes);
+        ByteArrayToFile("JPEG_Images/hey.jpg", c.received_bytes);
     }
 }
