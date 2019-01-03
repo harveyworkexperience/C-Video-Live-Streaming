@@ -196,7 +196,14 @@ class Client
             form.Size = img.Size;
             pb = new PictureBox();
             pb.Dock = DockStyle.Fill;
-            pb.Image = img;
+            try
+            {
+                pb.Image = img;
+            }
+            catch (Exception ex)
+            {
+                pb.Image = null;
+            }
             form.Controls.Add(pb);
             form.ShowDialog();
         }
