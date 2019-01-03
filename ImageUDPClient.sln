@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.168
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageUDPClient", "ImageUDPClient\ImageUDPClient.csproj", "{04089FF5-0E96-48C4-BA3F-D826200589B9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiImageUDPClient", "MultiImageUDPClient\MultiImageUDPClient.csproj", "{995DE463-5FDA-486A-B89B-D2D742C9A041}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageChanger", "ImageChanger\ImageChanger.csproj", "{A2E9DA11-A1E6-4F87-BA0B-228C57770BE2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReceiveMultipleImages", "ReceiveMultipleImages\ReceiveMultipleImages.csproj", "{6757E37E-854A-4B04-B35C-266B40E76395}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "test", "test\test.csproj", "{2B825438-6BD1-41EF-80FA-D4EAB98F409D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PartiallyWorkingVideoClient", "PartiallyWorkingVideoClient\PartiallyWorkingVideoClient.csproj", "{96E823AC-D3D4-40BC-AF34-4343EC4695DB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{04089FF5-0E96-48C4-BA3F-D826200589B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04089FF5-0E96-48C4-BA3F-D826200589B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04089FF5-0E96-48C4-BA3F-D826200589B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04089FF5-0E96-48C4-BA3F-D826200589B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{995DE463-5FDA-486A-B89B-D2D742C9A041}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{995DE463-5FDA-486A-B89B-D2D742C9A041}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{995DE463-5FDA-486A-B89B-D2D742C9A041}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{995DE463-5FDA-486A-B89B-D2D742C9A041}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A2E9DA11-A1E6-4F87-BA0B-228C57770BE2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A2E9DA11-A1E6-4F87-BA0B-228C57770BE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A2E9DA11-A1E6-4F87-BA0B-228C57770BE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A2E9DA11-A1E6-4F87-BA0B-228C57770BE2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6757E37E-854A-4B04-B35C-266B40E76395}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6757E37E-854A-4B04-B35C-266B40E76395}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6757E37E-854A-4B04-B35C-266B40E76395}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6757E37E-854A-4B04-B35C-266B40E76395}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B825438-6BD1-41EF-80FA-D4EAB98F409D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B825438-6BD1-41EF-80FA-D4EAB98F409D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B825438-6BD1-41EF-80FA-D4EAB98F409D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B825438-6BD1-41EF-80FA-D4EAB98F409D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96E823AC-D3D4-40BC-AF34-4343EC4695DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96E823AC-D3D4-40BC-AF34-4343EC4695DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96E823AC-D3D4-40BC-AF34-4343EC4695DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96E823AC-D3D4-40BC-AF34-4343EC4695DB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A312B5E8-6BA0-47B1-9380-54A4EF3B2870}
+	EndGlobalSection
+EndGlobal
