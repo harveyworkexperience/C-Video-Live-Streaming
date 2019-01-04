@@ -5,6 +5,8 @@ This repository contains Visual Studios 2017 code that is written in C#. There a
 
 The main purpose of the programs is to show how a UDP server can send raw image bytes to a UDP client which can then process the bytes to be used for displaying.
 
+
+
 ## ImageUDPClient
 This solution contains two projects called ImageUDPClient and MultiImageUDPClient. 
 
@@ -12,13 +14,19 @@ ImageUDPClient connects to a server and just retrieves a single image from the s
 
 MultiImageUDPClient connects to a server and continously retrieves image bytes so it can then process and display in a PictureBox.
 
+
+
 ## ImageUDPServer
 This solution contains only one project called ImageUDPServer.
 
 ImageUDPServer first converts the images in the JPEG_Images\ folder into bytes and then waits for a client to connect. Once connection has been established, it will just continously send the raw bytes to the client to process.
 
+
+
 ## Prerequisites
 * Visual Studios 2017
+
+
 
 ## Set up
 * Download the zip.
@@ -28,12 +36,32 @@ OR
 
 * Clone the repository.
 
-## Running
-* Open two separate instanes of Visual Studios 2017.
-* In one of them, open the ImageUDPServer solution and in the other open the ImageUDPClient solution.
-* Build everything.
-* Run an instance of the ImageUDPServer project.
-* Run an instance of either the ImageUDPClient project.
+
+
+## Running on the same machine
+1. Open two separate instanes of Visual Studios 2017.
+2. In one of them, open the ImageUDPServer solution and in the other open the ImageUDPClient solution.
+3. Build everything.
+4. Run an instance of the ImageUDPServer project.
+5. Run an instance of either the ImageUDPClient project.
+
+
+
+## Running on separate machines (Tested only through the same WiFi)
+**Important:** Follow the **ImageUDPServer Machine** instructions ***Before*** following the **ImageUDPClient Machine** instructions. The reason for this is because the ImageUDPClient projects will just close if they don't instantly connect to a server (I might get around to fixing this later).
+
+### ImageUDPServer Machine
+1. Build and run an instance of the ImageUDPServer project.
+2. Copy the IPv4 address (Under the Wireless LAN Adapter WiFi).
+
+### ImageUDPClient Machine
+1. Open Windows Command Prompt.
+2. Type in `ipconfig` and press enter.
+3. Choose and open the ImageUDPClient or MultiImageUDPClient projects.
+4. Replace the IP address in the IPEndPoint ep variable (Located near the top of the *Program.cs* file) to be the IP address you had just copied.
+5. Save, build and run the instance.
+
+
 
 ## TODO/WISHLIST
 * UDPServer cannot serve multiple clients. So a new instance will need to run whenever, you want to try out a different client. Want to fix this.
