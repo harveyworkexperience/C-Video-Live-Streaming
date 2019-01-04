@@ -19,7 +19,7 @@ class Client
     private static UdpClient udpclient = new UdpClient();
     // Localhost - 127.0.0.1
     // To check current IPv4 Address, open Command Prompt and type in ipconfig (Wireless LAN adapter WiFi)
-    private static IPEndPoint ep = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 11000); // endpoint where server is listening
+    private static IPEndPoint ep = new IPEndPoint(IPAddress.Parse("10.1.3.180"), 11000); // endpoint where server is listening
     public static byte[] received_bytes;
     private static int num_packets = 0;
     private static int received_bytes_ptr = 0;
@@ -194,19 +194,21 @@ class Client
     {
         using (Form form = new Form())
         {
-            Image img = Image.FromFile(imagepath);
+            Image img;
+            try
+            {
+                img = Image.FromFile(imagepath);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception caught in process: {0}", ex);
+                img = null;
+            }
             form.StartPosition = FormStartPosition.CenterScreen;
             form.Size = img.Size;
             pb = new PictureBox();
             pb.Dock = DockStyle.Fill;
-            try
-            {
-                pb.Image = img;
-            }
-            catch (Exception ex)
-            {
-                pb.Image = null;
-            }
+            pb.Image = img;
             form.Controls.Add(pb);
             form.ShowDialog();
         }
