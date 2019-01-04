@@ -18,7 +18,7 @@ class Client
     private bool connection_success = false;
     private static UdpClient udpclient = new UdpClient();
     // Localhost - 127.0.0.1
-    // To check current IPv4 Address, open Command Prompt and type in ipconfig
+    // To check current IPv4 Address, open Command Prompt and type in ipconfig (Wireless LAN adapter WiFi)
     private static IPEndPoint ep = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 11000); // endpoint where server is listening
     public static byte[] received_bytes;
     private static int num_packets = 0;
