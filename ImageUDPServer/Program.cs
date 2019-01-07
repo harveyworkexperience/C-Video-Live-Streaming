@@ -18,6 +18,7 @@ namespace ImageUDPServer
         const int num_bytes = 65000;
         static bool serve_client = false;
         static private string current_dir_path = System.AppDomain.CurrentDomain.BaseDirectory;
+        static public bool _interrupt_thread_status = false;
 
         // Storing images as byte array
         static public string simple_image_paths = current_dir_path+@"..\..\..\JPEG_Images\img";
@@ -29,8 +30,12 @@ namespace ImageUDPServer
         static public byte[][] images = LoadAnimation(animation_image_paths, "jpeg", 53);
 
         // Bad VR Video Images
-        static public string vr_paths = current_dir_path + @"..\..\..\JPEG_Images\vr_images\img";
-        static public byte[][] vr_images = null;//LoadAnimation(vr_paths, "jpeg", 1219);
+        static public string vr_paths = @"C:\Work Experience\JPEG_Images\med_quality_vr\img";
+        static public byte[][] vr_images = LoadAnimation(vr_paths, "jpg", 1219);
+
+        // Server Video Settings
+        static public int Current = 1;
+        static public bool Playing = false;
 
         // Load a lot of images
         static byte[][] LoadAnimation(string pathname, string extension, int num_images)
@@ -74,13 +79,18 @@ namespace ImageUDPServer
             // Input Listener
             Thread _input_thread = new Thread(KeyInterrupt);
             _input_thread.SetApartmentState(ApartmentState.STA);
+            _interrupt_thread_status = true;
             _input_thread.Start();
 
             // Waiting for connection
             Console.WriteLine("SERVER\n=====================");
             udpserver = new UdpClient(11000);
             importantEP = null;
-            while (true) WaitForClient();
+            WaitForClient();
+
+            _interrupt_thread_status = false;
+            _input_thread.Join();
+            
         }
 
         static public byte[] ImageToByteArray(string imagepath)
@@ -99,12 +109,20 @@ namespace ImageUDPServer
             var datagram = Encoding.ASCII.GetBytes("Yes we are connected.");
             var data = "Null";
 
-            Console.Write("Waiting for client connection");
-
             while (true)
             {
+                Console.Write("Waiting for client connection");
+
                 var ep = new IPEndPoint(IPAddress.Any, 11000);
-                data = Encoding.ASCII.GetString(udpserver.Receive(ref ep)); // Listen on port 11000
+                try
+                {
+                    data = Encoding.ASCII.GetString(udpserver.Receive(ref ep)); // Listen on port 11000
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Exception caught in process: {0}", ex);
+                    continue;
+                }
                 if (DEBUGMODE) Console.Write("Received data from " + ep.ToString() + "\n");
                 if (DEBUGMODE) Console.Write("data: " + data + "\n\n");
 
@@ -119,29 +137,78 @@ namespace ImageUDPServer
                     importantEP = ep;
                     serve_client = true;
                     Console.Write("\n");
-                    ServeClientVideo();
+                    ServeClient();
+                    Console.Write("\n");
                 }
             }
         }
 
         static public void KeyInterrupt()
         {
-            while (true)
+            while (_interrupt_thread_status)
             {
                 if (Keyboard.IsKeyDown(Key.Q))
                 {
                     serve_client = false;
+                }
+
+                else if (Keyboard.IsKeyDown(Key.D1))
+                {
+                    if (Current != 0)
+                    {
+                        Playing = false;
+                        Current = 0;
+                    }
+                }
+                else if (Keyboard.IsKeyDown(Key.D2))
+                {
+                    if (Current != 1)
+                    {
+                        Playing = false;
+                        Current = 1;
+                    }
+                }
+                else if (Keyboard.IsKeyDown(Key.D3))
+                {
+                    if (Current != 2)
+                    {
+                        Playing = false;
+                        Current = 2;
+                    }
                 }
             }
         }
 
         static public void ServeClient()
         {
+            while (serve_client)
+            {
+                Playing = true;
+                if (Current == 0)
+                {
+                    Console.WriteLine("Now serving client simple images!");
+                    ServeClientSimple();
+                }
+                else if (Current == 1)
+                {
+                    Console.WriteLine("Now serving client animation video images!");
+                    ServeClientVideo();
+                }
+                else if (Current == 2)
+                {
+                    Console.WriteLine("Now serving client VR video images!");
+                    ServeClientVideoVR();
+                }
+            }
+        }
+
+        static public void ServeClientSimple()
+        {
             // Sending image to important client
             Console.Write("Sending image bytes to client");
             var datagram = Encoding.ASCII.GetBytes("Sending image bytes!");
             udpserver.Send(datagram, datagram.Length, importantEP);
-            while (serve_client)
+            while (serve_client && Playing)
             {
                 int loop1_count = 0;
                 int loop2_count = 0;
@@ -153,6 +220,7 @@ namespace ImageUDPServer
                         Array.Copy(img1, loop1_count * num_bytes, b, 0, i);
                     else
                         Array.Copy(img1, loop1_count * num_bytes, b, 0, num_bytes);
+                    if (!Playing) break;
                     udpserver.Send(b, num_bytes, importantEP);
                     loop1_count++;
                 }
@@ -164,6 +232,7 @@ namespace ImageUDPServer
                         Array.Copy(img2, loop2_count * num_bytes, b, 0, i);
                     else
                         Array.Copy(img2, loop2_count * num_bytes, b, 0, num_bytes);
+                    if (!Playing) break;
                     udpserver.Send(b, num_bytes, importantEP);
                     loop2_count++;
                 }
@@ -176,7 +245,7 @@ namespace ImageUDPServer
             Console.Write("Sending image bytes to client");
             var datagram = Encoding.ASCII.GetBytes("Sending image bytes!");
             udpserver.Send(datagram, datagram.Length, importantEP);
-            while (serve_client)
+            while (serve_client && Playing)
             {
                 for (int i = 0; i<images.Length; i++)
                 {
@@ -189,9 +258,11 @@ namespace ImageUDPServer
                             Array.Copy(images[i], loop_count * num_bytes, b, 0, j);
                         else
                             Array.Copy(images[i], loop_count * num_bytes, b, 0, num_bytes);
+                        if (!Playing) break;
                         udpserver.Send(b, num_bytes, importantEP);
                         loop_count++;
                     }
+                    if (!Playing) break;
                     System.Threading.Thread.Sleep(100);
                 }
             }
@@ -202,7 +273,7 @@ namespace ImageUDPServer
             Console.Write("Sending image bytes to client");
             var datagram = Encoding.ASCII.GetBytes("Sending image bytes!");
             udpserver.Send(datagram, datagram.Length, importantEP);
-            while (serve_client)
+            while (serve_client && Playing)
             {
                 for (int i = 0; i < vr_images.Length; i++)
                 {
@@ -215,9 +286,11 @@ namespace ImageUDPServer
                             Array.Copy(vr_images[i], loop_count * num_bytes, b, 0, j);
                         else
                             Array.Copy(vr_images[i], loop_count * num_bytes, b, 0, num_bytes);
+                        if (!Playing) break;
                         udpserver.Send(b, num_bytes, importantEP);
                         loop_count++;
                     }
+                    if (!Playing) break;
                     System.Threading.Thread.Sleep(100);
                 }
             }

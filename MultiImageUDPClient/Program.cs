@@ -19,7 +19,7 @@ class Client
     private static UdpClient udpclient = new UdpClient();
     // Localhost - 127.0.0.1
     // To check current IPv4 Address, open Command Prompt and type in ipconfig (Wireless LAN adapter WiFi)
-    private static IPEndPoint ep = new IPEndPoint(IPAddress.Parse("10.1.3.180"), 11000); // endpoint where server is listening
+    private static IPEndPoint ep = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 11000); // endpoint where server is listening
     public static byte[] received_bytes;
     private static int num_packets = 0;
     private static int received_bytes_ptr = 0;
@@ -310,8 +310,8 @@ class Client
         is_running = false;
         _thread.Join();
         Console.Write("\n");
-        Console.WriteLine("Waiting 10 seconds...");
-        System.Threading.Thread.Sleep(10000);
+        Console.WriteLine("Waiting 3 seconds...");
+        System.Threading.Thread.Sleep(3000);
 
         // Cleaning up
         pb.Image.Dispose();
