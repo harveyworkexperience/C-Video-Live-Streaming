@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28307.168
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageUDPServer", "ImageUDPServer\ImageUDPServer.csproj", "{8F89ADF2-6454-4C72-BCE7-88AE5043FF0F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiClientUDPServer", "MultiClientUDPServer\MultiClientUDPServer.csproj", "{B1BEF8B7-CA0F-4928-BB4B-51BC47E90201}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{8F89ADF2-6454-4C72-BCE7-88AE5043FF0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8F89ADF2-6454-4C72-BCE7-88AE5043FF0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8F89ADF2-6454-4C72-BCE7-88AE5043FF0F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1BEF8B7-CA0F-4928-BB4B-51BC47E90201}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1BEF8B7-CA0F-4928-BB4B-51BC47E90201}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1BEF8B7-CA0F-4928-BB4B-51BC47E90201}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1BEF8B7-CA0F-4928-BB4B-51BC47E90201}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
