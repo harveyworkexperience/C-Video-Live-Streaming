@@ -19,7 +19,7 @@ class Client
     private static UdpClient udpclient = new UdpClient();
     // Localhost - 127.0.0.1
     // To check current IPv4 Address, open Command Prompt and type in ipconfig (Wireless LAN adapter WiFi)
-    private static IPEndPoint ep = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 11000); // endpoint where server is listening
+    private static IPEndPoint ep = new IPEndPoint(IPAddress.Parse("10.1.3.180"), 11000); // endpoint where server is listening
     public static byte[] received_bytes;
     private static int num_packets = 0;
     private static int received_bytes_ptr = 0;
@@ -61,23 +61,35 @@ class Client
         // Connection success
         if (connection_success)
         {
-            // Waiting for response from server
-            byte[] datagram = Encoding.ASCII.GetBytes("Are we connected yet?");
-            udpclient.Send(datagram, datagram.Length);
-            var data = Encoding.ASCII.GetString(udpclient.Receive(ref ep));
-            while (data != "Yes we are connected.")
+            /**** Connection Type 1 ****/
+            //// Waiting for response from server
+            //byte[] datagram = Encoding.ASCII.GetBytes("Are we connected yet?");
+            //udpclient.Send(datagram, datagram.Length);
+            //var data = Encoding.ASCII.GetString(udpclient.Receive(ref ep));
+            //while (data != "Yes we are connected.")
+            //{
+            //    udpclient.Send(datagram, datagram.Length);
+            //    data = Encoding.ASCII.GetString(udpclient.Receive(ref ep));
+            //}
+            //// Requesting byte stream
+            //datagram = Encoding.ASCII.GetBytes("Received response!");
+            //udpclient.Send(datagram, datagram.Length);
+            //data = Encoding.ASCII.GetString(udpclient.Receive(ref ep));
+            //while (data.Length <= 0)
+            //{
+            //    udpclient.Send(datagram, datagram.Length);
+            //    data = Encoding.ASCII.GetString(udpclient.Receive(ref ep));
+            //}
+
+            /**** Connection Type 2 ****/
+            byte[] datagram = Encoding.ASCII.GetBytes("Send me stuff!");
+            try
             {
                 udpclient.Send(datagram, datagram.Length);
-                data = Encoding.ASCII.GetString(udpclient.Receive(ref ep));
             }
-            // Requesting byte stream
-            datagram = Encoding.ASCII.GetBytes("Received response!");
-            udpclient.Send(datagram, datagram.Length);
-            data = Encoding.ASCII.GetString(udpclient.Receive(ref ep));
-            while (data.Length <= 0)
+            catch
             {
-                udpclient.Send(datagram, datagram.Length);
-                data = Encoding.ASCII.GetString(udpclient.Receive(ref ep));
+                return false;
             }
         }
         return connection_success;
