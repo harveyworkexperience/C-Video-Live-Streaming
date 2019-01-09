@@ -22,6 +22,7 @@ This solution contains only two projects called ImageUDPServer and MultiClientUD
 ImageUDPServer first converts the images in the JPEG_Images\ folder into bytes and then waits for a client to connect. Once connection has been established, it will just continously send the raw bytes to the client to process.
 
 MultiClientUDPServer demonstrates that it can allow multiple clients to subscribe to the service and receive the same streams. The outputting stream can be switched so that each client is receiving the same type of service.
+***Note: The MultiClientUDPServer uses a lot of resources so instances of it should run on a computer that can handle it (Haven't tested thoroughly).***
 
 
 
@@ -44,8 +45,9 @@ OR
 1. Open two separate instanes of Visual Studios 2017.
 2. In one of them, open the ImageUDPServer solution and in the other open the ImageUDPClient solution.
 3. Build everything.
-4. Run an instance of the ImageUDPServer project.
-5. Run an instance of either the ImageUDPClient project.
+4. Run an instance of one of the two ImageUDPServer project.
+5. Run an instance of one of the two ImageUDPClient project.
+6. The client instance should be displaying a video in a PictureBox.
 
 
 
@@ -53,7 +55,7 @@ OR
 **Important:** Follow the **ImageUDPServer Machine** instructions ***Before*** following the **ImageUDPClient Machine** instructions. The reason for this is because the ImageUDPClient projects will just close if they don't instantly connect to a server (I might get around to fixing this later).
 
 ### ImageUDPServer Machine
-1. Build and run an instance of the ImageUDPServer project.
+1. Build and run an instance of one of the two ImageUDPServer project.
 2. Copy the IPv4 address (Under the Wireless LAN Adapter WiFi).
 
 ### ImageUDPClient Machine
@@ -62,6 +64,7 @@ OR
 3. Choose and open the ImageUDPClient or MultiImageUDPClient projects.
 4. Replace the IP address in the IPEndPoint ep variable (Located near the top of the *Program.cs* file) to be the IP address you had just copied.
 5. Save, build and run the instance.
+6. The client instance should be displaying a video in a PictureBox.
 
 
 
