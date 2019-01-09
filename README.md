@@ -74,3 +74,4 @@ OR
 * Add in a Real Time Transport library and integrate that with the solutions.
 * Increase the speed of processing the bytes to be able to handle higher quality images.
 * A client is unable to listen to the server while it is in the middle of broadcasting. Want to fix this.
+* Use a Session Announcement Protocol to announce detailed information about the broadcast.
