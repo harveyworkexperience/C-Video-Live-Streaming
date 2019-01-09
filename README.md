@@ -22,6 +22,7 @@ This solution contains only two projects called ImageUDPServer and MultiClientUD
 ImageUDPServer first converts the images in the JPEG_Images\ folder into bytes and then waits for a client to connect. Once connection has been established, it will just continously send the raw bytes to the client to process.
 
 MultiClientUDPServer demonstrates that it can allow multiple clients to subscribe to the service and receive the same streams. The outputting stream can be switched so that each client is receiving the same type of service.
+
 ***Note: The MultiClientUDPServer uses a lot of resources so instances of it should run on a computer that can handle it (Haven't tested thoroughly).***
 
 
