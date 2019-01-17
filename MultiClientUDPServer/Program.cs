@@ -211,6 +211,7 @@ namespace MultiClientUDPServer
 
         static public Thread StartServingClientThread(UdpState s)
         {
+            Console.WriteLine("Starting new thread to serve client at: "+s.ep.ToString());
             Thread t = new Thread(() => ServeClient(s));
             t.Start();
             return t;
